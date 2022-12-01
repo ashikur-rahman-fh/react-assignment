@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState, useCallback } from 'react';
+
 import './App.css';
+import Counter from './components/Counter';
+import UserList from './components/UserList';
 
 function App() {
+  const [value, setValue] = useState("counter");
+
+    const handleClick = useCallback(() => {
+        setValue((previousValue) => {
+            if (typeof(previousValue) == 'string') {
+                return 0;
+            }
+            return previousValue + 1;
+        });
+    }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Counter value={value} handleClick={handleClick} />
+      <UserList />
     </div>
   );
 }
